@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
-      lang="en">
+      lang="en"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
 
 <head>
     <meta charset="UTF-8">
@@ -20,10 +22,12 @@
     </h3>
 
     <div class="container">
-        <form align="left" action="/application">
+        <form align="left" action="/application"
+              sec:authorize="hasRole('ADMIN')">
             <input type="submit"
                    value="Add"
-                   class="btn btn-secondary"/>
+                   class="btn btn-secondary"
+            />
         </form>
         <br>
         <table  class="table table-striped">
@@ -42,7 +46,8 @@
                 <td th:text="${student.surname}"></td>
                 <td th:text="${student.mobile}"></td>
                 <td>
-                    <div class="d-grid gap-2 d-md-block">
+                    <div class="d-grid gap-2 d-md-block"
+                         sec:authorize="hasRole('ADMIN')">
                         <a class="btn btn-secondary"
                            type="button"
                            th:href="@{/updateStudent(id=${student.id}, name=${student.name},

@@ -28,7 +28,7 @@ public class StudentsController {
         model.addAttribute("titlePage", "Student List");
         model.addAttribute("localDateTime", localDateTime);
         model.addAttribute("students", students);
-        return "testView.html";
+        return "testView";
     }
     @GetMapping("/application")
     public String application(Model model){
@@ -39,7 +39,7 @@ public class StudentsController {
     }
     @PostMapping("/saveStudent")
     public String saveStudent(@RequestParam int id,
-                                @RequestParam String name,
+                              @RequestParam String name,
                               @RequestParam String surname,
                               @RequestParam long mobile){
         System.out.println(name+surname+mobile);
