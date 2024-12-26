@@ -14,7 +14,7 @@ public class RowMapperEntity implements RowMapper<Student> {
         student.setId(rs.getInt("id"));
         student.setName(rs.getString("name"));
         student.setSurname(rs.getString("surname"));
-        student.setMobile(rs.getLong("mobile"));
+        student.setMobile(rs.getString("mobile"));
         return student;
     }
 }

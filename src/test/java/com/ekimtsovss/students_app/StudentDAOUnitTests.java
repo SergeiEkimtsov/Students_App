@@ -38,7 +38,7 @@ public class StudentDAOUnitTests {
     @Test
     public void handleGetAllStudents_ReturnValidRespond(){
         //given
-        var list = List.of(new Student(1, "A","B",1));
+        var list = List.of(new Student(1, "A","B","111-22-33"));
         doReturn(list).when(this.serviceStudent).getAllStudents();
 
         var respond = this.studentsController.showAllStudents(model);

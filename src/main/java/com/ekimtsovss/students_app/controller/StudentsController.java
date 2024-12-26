@@ -3,14 +3,13 @@ package com.ekimtsovss.students_app.controller;
 import com.ekimtsovss.students_app.dao.StudentDaoImpl;
 import com.ekimtsovss.students_app.entity.Student;
 import com.ekimtsovss.students_app.service.ServiceStudent;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 
@@ -28,7 +27,7 @@ public class StudentsController {
         model.addAttribute("titlePage", "Student List");
         model.addAttribute("localDateTime", localDateTime);
         model.addAttribute("students", students);
-        return "testView";
+        return "initialPage";
     }
     @GetMapping("/application")
     public String application(Model model){
@@ -37,24 +36,34 @@ public class StudentsController {
         model.addAttribute("student", student);
         return "student_application";
     }
-    @PostMapping("/saveStudent")
-    public String saveStudent(@RequestParam int id,
-                              @RequestParam String name,
-                              @RequestParam String surname,
-                              @RequestParam long mobile){
-        System.out.println(name+surname+mobile);
+    @PostMapping("/student")
+//    public String saveStudent(@RequestParam int id,
+//                              @RequestParam @Valid @ModelAttribute("student") String name,
+//                              BindingResult bindingResult,
+//                              @RequestParam String surname,
+//                              @RequestParam long mobile) {
+//        System.out.println(name+surname+mobile);
+    public String saveStudent( @RequestBody @Valid @ModelAttribute("student") Student student,
+                               BindingResult bindingResult){
+        if (bindingResult.hasErrors()){
+            return "student_application";
 
-        Student student = new Student();
-        student.setId(id);
-        student.setName(name);
-        student.setSurname(surname);
-        student.setMobile(mobile);
+        }
+        else {
 
-        if (student.getId()==0)
-            serviceStudent.saveStudent(student);
-        else serviceStudent.updateStudent(student);
+//            Student student = new Student();
+//            student.setId(id);
+//            student.setName(name);
+//            student.setSurname(surname);
+//            student.setMobile(mobile);
 
-        return "redirect:/getAll";
+            if (student.getId() == 0)
+                serviceStudent.saveStudent(student);
+            else serviceStudent.updateStudent(student);
+            System.out.println("!!!Q");
+
+            return "redirect:/getAll";
+        }
     }
     @GetMapping("/updateStudent")
     public String updateStudent(@RequestParam int id,

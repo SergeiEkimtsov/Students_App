@@ -1,19 +1,24 @@
 package com.ekimtsovss.students_app.entity;
 
 
-import jakarta.annotation.Nonnull;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+import org.springframework.boot.context.properties.bind.DefaultValue;
 
 public class Student {
     private int id;
-
+    @NotBlank(message = "Name is mandatory")
     private String name;
+    @NotBlank(message = "Surname is mandatory")
     private String surname;
-    private long mobile;
+    @Pattern(regexp = "\\d{3}-\\d{3}-\\d{2}",
+            message = "Phone number must be xxx-xxx-xx")
+     private String mobile;
 
     public Student() {
     }
 
-    public Student(int id, String name, String surname, long mobile) {
+    public Student(int id, String name, String surname, String mobile) {
         this.id = id;
         this.name = name;
         this.surname = surname;
@@ -44,11 +49,11 @@ public class Student {
         this.surname = surname;
     }
 
-    public long getMobile() {
+    public String getMobile() {
         return mobile;
     }
 
-    public void setMobile(long mobile) {
+    public void setMobile(String mobile) {
         this.mobile = mobile;
     }
 
