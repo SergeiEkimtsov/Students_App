@@ -1,7 +1,9 @@
 package com.ekimtsovss.students_app.config;
 
+import com.ekimtsovss.students_app.aop.LoggingAspect;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.thymeleaf.TemplateEngine;
@@ -10,7 +12,7 @@ import org.thymeleaf.extras.springsecurity6.dialect.SpringSecurityDialect;
 import org.thymeleaf.spring6.SpringTemplateEngine;
 
 import javax.sql.DataSource;
-
+@EnableAspectJAutoProxy
 @Configuration
 public class ConfigStudent {
 
@@ -34,6 +36,10 @@ public class ConfigStudent {
         return dataSource;
 
     }
+//    @Bean
+//    public LoggingAspect loggingAspect(){
+//        return new LoggingAspect();
+//    }
 
 
 
